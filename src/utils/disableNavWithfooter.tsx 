@@ -1,0 +1,5 @@
+const disableNavWithFooter = [
+    "/sign-in",
+    "/register",
+]
+export default disableNavWithFooter;

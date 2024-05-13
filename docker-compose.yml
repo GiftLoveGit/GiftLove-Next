@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  frontend:
+    container_name: next-giftlove-app
+    build: .
+    restart: unless-stopped
+    stdin_open: true
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    ports:
+      - "${FRONT_PORT:-3000}:3000"
+    networks:
+      - next-giftlove-network
+
+networks:
+  next-giftlove-network:
+    name: next-giftlove-network
+    driver: bridge
