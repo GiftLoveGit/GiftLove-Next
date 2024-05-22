@@ -1,4 +1,5 @@
 export interface LoginType {
-    cpfCnpj: string,
-    password: string
+    cpfCnpj: string;
+    password: string;
+    remember_me: boolean;
 }

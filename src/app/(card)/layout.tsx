@@ -10,8 +10,8 @@ import Footer from "@/partials/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Gift Love | Dashboard",
-    description: "Dashboard",
+    title: "GiftLove | Cartão",
+    description: "GiftLove | Cartão",
     icons: {
         icon: "@/favicon.svg"
     },

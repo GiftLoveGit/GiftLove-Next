@@ -1,14 +1,19 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getAuthData } from "@/actions/auth";
+import { checkAuth } from "@/actions/auth";
 
-// This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-    const authData = await getAuthData();
-    if(!authData)
-        // return NextResponse.redirect(new URL('/', request.url))
+    // const authData = await getAuthData();
+    const auth = await checkAuth();
+    // // console.log('resposta auth', auth)
+    if(!auth)
+         // return NextResponse.redirect(new URL('/', request.url))
         return NextResponse.redirect(new URL('/login', request.url));
     }
+    // if(!authData)
+    //     // return NextResponse.redirect(new URL('/', request.url))
+    //     return NextResponse.redirect(new URL('/login', request.url));
+    // }
 
 // See "Matching Paths" below to learn more
 export const config = {
