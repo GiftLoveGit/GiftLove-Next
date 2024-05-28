@@ -4,7 +4,7 @@ import banner2 from "@/assets/banner2.png"
 import banner3 from "@/assets/banner3.png"
 import Image from "next/image"
 
-const Carousel: React.FC = () => {
+export default function Carousel(){
   const images = [banner1, banner2, banner3]
 
   return (
@@ -40,6 +40,7 @@ const Carousel: React.FC = () => {
               src={image}
               className="d-block w-100"
               alt={`Imagem ${index + 1}`}
+              height={300}
             />
           </div>
         ))}
@@ -63,5 +64,3 @@ const Carousel: React.FC = () => {
     </div>
   )
 }
-
-export default Carousel

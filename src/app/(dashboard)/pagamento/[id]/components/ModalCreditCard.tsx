@@ -1,5 +1,4 @@
 'use client'
-import { Form } from "@/components/Form";
 import React, { useState, FocusEvent, ChangeEvent, Dispatch, SetStateAction, useEffect, PropsWithChildren } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -42,17 +41,7 @@ interface ValidationError {
 interface Success {
     code: string;
 }
-type HTMLFormProps = React.DetailedHTMLProps<
-    React.FormHTMLAttributes<HTMLFormElement>,
-    HTMLFormElement
->;
-type FormProps = PropsWithChildren<
-    Omit<HTMLFormProps, "action"> & {
-        action: (prevState: any, formData: FormData) => Promise<any>;
-        setErrors: React.Dispatch<React.SetStateAction<ValidationError[]>>;
-        setSuccess: React.Dispatch<React.SetStateAction<Success[]>>;
-    }
->;
+
 
 export default function ModalCreditCard({
     price,

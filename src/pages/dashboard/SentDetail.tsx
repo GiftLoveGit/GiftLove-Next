@@ -1,12 +1,15 @@
+'use client'
 import React, { useEffect } from "react"
-import { useParams, Link } from "react-router-dom"
-import cartaoIMG from "../../assets/card.png"
-import Sidebar from "../../partials/Sidebar"
-import FooterDash from "../../partials/FooterDash"
+// import { useParams } from "react-router-dom"
+import cartaoIMG from "@/assets/card.png"
+import Sidebar from "@/partials/Sidebar"
+import FooterDash from "@/partials/FooterDash"
+import Link from "next/link"
+import Image from "next/image"
 
 interface Item {
   id: number
-  card: string
+  card: any;
   sent: string
   message: string
   value: string
@@ -15,8 +18,9 @@ interface Item {
 }
 
 const SentDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>()
-  const itemId = id ? parseInt(id) : 0
+  // const { id } = useParams<{ id: string }>()
+  const id = 2
+  const itemId = id ? id : 0
 
   useEffect(() => {
     document.title = `GiftLove | Detalhes Enviados`
@@ -87,12 +91,12 @@ const SentDetail: React.FC = () => {
             <div className="position-relative col col-sm-4 bg-body rounded-4 shadow p-4">
               <Link
                 className="position-absolute me-3 end-0 btn btn-outline-blue float-end z-1"
-                to="/enviados"
+                href="/enviados"
               >
                 Voltar
               </Link>
               <div className="d-flex flex-column justify-content-center align-items-center">
-                <img className="mb-3 rounded-3" src={item.card} alt="" />
+                <Image className="mb-3 rounded-3" src={item.card} alt="as" />
                 <p>{item.category}</p>
                 <p>Mensagem: {item.message}</p>
                 <p>Valor: {item.value}</p>

@@ -1,5 +1,4 @@
 import React from "react"
-import video from "@/assets/vantagens.mp4"
 
 function Vantagens() {
   return (
@@ -11,7 +10,7 @@ function Vantagens() {
       <div className=" d-flex flex-column flex-sm-row my-5">
         <div className="col d-flex justify-content-center">
           <video className="rounded-4 img-fluid" controls width="450">
-            <source src="../../assets/vantagens.mp4" type="video/mp4" />
+            <source src="videos/vantagens.mp4" type="video/mp4" />
             {/* Mensagem alternativa para navegadores que não suportam vídeo */}
             O seu navegador não suporta a tag vídeo.
           </video>

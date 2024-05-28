@@ -12,6 +12,7 @@ export async function getDataGiftCards() {
             'Accept': 'application/json',
         },
     });
+    
     if (response.ok){
         const data = await response.json();
         revalidatePath('/');

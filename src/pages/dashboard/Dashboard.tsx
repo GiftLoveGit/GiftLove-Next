@@ -1,7 +1,8 @@
+'use client'
 import React, { useEffect } from "react"
-import Sidebar from "../../partials/Sidebar"
-import FooterDash from "../../partials/FooterDash"
-import TokenGenerator from "../../components/Dashboard/TokenGenerator"
+import Sidebar from "@/partials/Sidebar"
+import FooterDash from "@/partials/FooterDash"
+import TokenGenerator from "@/components/Dashboard/TokenGenerator"
 
 const Dashboard: React.FC = () => {
   useEffect(() => {

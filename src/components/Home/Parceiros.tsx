@@ -4,6 +4,7 @@ import AliceCarousel from "react-alice-carousel"
 import "react-alice-carousel/lib/alice-carousel.css"
 import cardParceiros from "@/assets/parceiros.png"
 import Image from "next/image"
+import Link from "next/link"
 
 const cards = [
   {
@@ -24,36 +25,6 @@ const cards = [
     name: "Você Chic Boutique",
     adress: "Loja Virtual",
   },
-  {
-    id: 4,
-    imgSrc: cardParceiros,
-    name: "Tourinho Inovatech",
-    adress: "Loja Virtual",
-  },
-  {
-    id: 5,
-    imgSrc: cardParceiros,
-    name: "Diva Pink Presentes & Variedades",
-    adress: "Loja Virtual",
-  },
-  {
-    id: 6,
-    imgSrc: cardParceiros,
-    name: "Slim-Estética Especializada",
-    adress: "Loja Virtual",
-  },
-  {
-    id: 7,
-    imgSrc: cardParceiros,
-    name: "Salão de Beleza Anne Vieria",
-    adress: "Loja Virtual",
-  },
-  {
-    id: 8,
-    imgSrc: cardParceiros,
-    name: "Salão de Beleza LasBellas",
-    adress: "Loja Virtual",
-  },
 ]
 
 const bodyItems = cards.map((card) => (
@@ -63,15 +34,17 @@ const bodyItems = cards.map((card) => (
         src={card.imgSrc}
         className="card-img-top rounded-sm-4 rounded-3"
         alt={`Card ${card.id}`}
+        width={250}
+        height={250}
       />
       <div className="card-body pb-0 pt-3 px-0">
-        <a
+        <Link
           href={`/parceiro/${card.id}`}
           className="btn btn-outline-pink w-100 rounded-sm-4 rounded-3"
           rel="nofollow"
         >
           Saber mais
-        </a>
+        </Link>
       </div>
     </div>
   </div>

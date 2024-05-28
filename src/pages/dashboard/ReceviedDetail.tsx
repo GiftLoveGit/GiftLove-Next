@@ -1,12 +1,14 @@
 import React, { useEffect } from "react"
-import { useParams, Link } from "react-router-dom"
+// import { useParams, Link } from "react-router-dom"
 import cartaoIMG from "../../assets/card.png"
 import Sidebar from "../../partials/Sidebar"
 import FooterDash from "../../partials/FooterDash"
+import Link from "next/link"
+import Image from "next/image"
 
 interface Item {
   id: number
-  card: string
+  card: any
   sender: string
   value: string
   date: string
@@ -14,8 +16,8 @@ interface Item {
 }
 
 const ReceviedDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>()
-  const itemId = id ? parseInt(id) : 0
+  const  id = 1;
+  const itemId = id ? id : 0
 
   useEffect(() => {
     document.title = `GiftLove | Detalhes Recebidos`
@@ -81,12 +83,12 @@ const ReceviedDetail: React.FC = () => {
             <div className="position-relative  col col-sm-4 bg-body rounded-4 shadow p-4">
               <Link
                 className="position-absolute me-3 end-0 btn btn-outline-blue float-end z-1"
-                to="/recebidos"
+                href="/recebidos"
               >
                 Voltar
               </Link>
               <div className="d-flex flex-column justify-content-center align-items-center">
-                <img className="mb-3 rounded-3" src={item.card} alt="" />
+                <Image className="mb-3 rounded-3" src={item.card} alt={item.sender} />
                 <p>{item.category}</p>
                 <p>Presenteador: {item.sender}</p>
                 <p>Valor: {item.value}</p>

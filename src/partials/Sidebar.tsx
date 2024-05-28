@@ -114,14 +114,14 @@ function Sidebar({ currentPage }: SidebarProps) {
                 <FaDesktop /> Site
               </Link>
             </li>
-            <li className="nav-item py-2">
+            {/* <li className="nav-item py-2">
               <Link
                 href="/recebidos"
                 className={`nav-link gl-gray rounded-3 ${pathname === "/recebidos" ? "active" : ""}`}
               >
                 <i className="bx bxs-calendar-check"></i> Recebidos
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item py-2">
               <Link
                 href="/enviados"
@@ -130,14 +130,14 @@ function Sidebar({ currentPage }: SidebarProps) {
                 <i className="bx bxs-calendar"></i> Enviados
               </Link>
             </li>
-            <li className="nav-item py-2">
+            {/* <li className="nav-item py-2">
               <Link
                 href="/extratos"
                 className={`nav-link gl-gray rounded-3 ${pathname === "/extratos" ? "active" : ""}`}
               >
                 <FaCreditCard /> Extratos
               </Link>
-            </li>
+            </li> */}
             <p className="px-3 mb-2 mt-3 fw-bold">Perfil</p>
             <li className="nav-item py-2">
               <Link

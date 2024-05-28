@@ -1,7 +1,8 @@
 import React, { useEffect } from "react"
-import Sidebar from "../../partials/Sidebar"
-import FooterDash from "../../partials/FooterDash"
-import cartaoIMG from "../../assets/card.png"
+import Sidebar from "@/partials/Sidebar"
+import FooterDash from "@/partials/FooterDash"
+import cartaoIMG from "@/assets/card.png"
+import Image from "next/image"
 
 const Send: React.FC = () => {
   useEffect(() => {
@@ -83,9 +84,9 @@ const Send: React.FC = () => {
                   {dataTable.map((item) => (
                     <tr key={item.id}>
                       <td className="text-center">
-                        <img
+                        <Image
                           src={item.card}
-                          alt={item.card}
+                          alt={item.sender}
                           className="img-fluid rounded-3"
                           width={120}
                         />

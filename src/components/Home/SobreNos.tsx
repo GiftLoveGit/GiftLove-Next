@@ -1,8 +1,6 @@
 "use client"
-import React from "react"
-import video from "@/assets/apresentacao.mp4"
+import React, { useEffect, useState } from "react"
 import AliceCarousel from "react-alice-carousel"
-import "react-alice-carousel/lib/alice-carousel.css"
 import videodep from "@/assets/vid_placeholder.png"
 import Image from 'next/image'
 
@@ -35,24 +33,35 @@ const cards = [
 ]
 
 const bodyItems = cards.map((card) => (
-  <div className="item mx-2 mx-sm-5  pb-1" key={card.id}>
-    <div className="card shadow-sm border-0 h-100  rounded-sm-5 rounded-4">
+  <div className="item mx-2 mx-sm-5 pb-1" key={card.id}>
+    <div className="card shadow-sm border-0 h-100 rounded-sm-5 rounded-4">
       <Image
         src={card.imgSrc}
         className="card-img-top rounded-sm-4 rounded-3"
-        alt={`Card ${card.id}`}
+        alt={`card ${card.id} aqui`}
+        width={250}
+        height={250}
       />
     </div>
   </div>
-))
+));
 
 function SobreNos() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
   return (
     <div className="row justify-content-center pt-5 gl-light-gray rounded-5 p-4">
       <div className=" d-flex flex-column flex-sm-row px-sm-5 px-0 my-3">
         <div className="col d-flex justify-content-center">
           <video className="rounded-4 img-fluid" controls width="250">
-            <source src="../../assets/apresentacao.mp4" type="video/mp4" />
+            <source src="videos/apresentacao.mp4" type="video/mp4" />
             {/* Mensagem alternativa para navegadores que não suportam vídeo */}
             O seu navegador não suporta a tag vídeo.
           </video>

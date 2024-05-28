@@ -41,7 +41,7 @@ export async function purchasePayment(prevState: any, formData: FormData) {
     const cleanedPhone = phone.replace(/\D/g, '');
     const cleanedNumber_credit = number_credit.replace(/\D/g, '');
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/show_admin/purchase_payment/${formData.get('purchase_id')}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/show_admin/purchase_payment/credit_card/${formData.get('purchase_id')}`, {
         method: "POST",
         cache: 'no-store',
         headers: headersAuth,
@@ -77,16 +77,35 @@ export async function purchasePayment(prevState: any, formData: FormData) {
     }
 }
 
-// importas dados de taxas para o pagamento
-export async function getDataCreditCardPayment(id: string){
+export async function pixQrCodeStatic(prevState: any, formData: FormData) {
     'use server'
     const headersAuth = await headersAuthorization();
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/show_admin/get_fees`, {
+    const auth = await getAuthData();
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/show_admin/purchase_payment/pix_static/${formData.get('purchase_id')}`, {
+        cache: 'no-store',
+        headers: headersAuth,
+    });
+    if (response.ok) {
+        const { data }   = await response.json();
+        data.success = "success"
+        return data;
+    } else {
+        const data = await response.json();
+        console.error(data)
+        throw new Error(data);
+    } 
+}
+
+export async function getDataPayments(){
+    'use server'
+    const auth = await getAuthData();
+    const headersAuth = await headersAuthorization();
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/show_admin/get_payments/${auth.payload.id}`, {
         cache: 'no-store',
         headers: headersAuth,
     });
     if(response.ok) {
-        const data = await response.json();
+        const { data } = await response.json();
         return data;
     } else {
         throw new Error('Erro ao obter dados de taxas');
@@ -98,42 +117,24 @@ export async function redirectEnviados(data: Boolean ) {
         redirect('/enviados')
     }
 }
-
-
-
-
-// export async function postSchedule(prevState: any, formData: FormData) {
-//     'use server';
-//     const headersAuth = await headersAuthorization();
-//     const auth = await getAuthData();
-//     const price = formData.get('price') as string;
-//     const cleanedPrice = cleanedFormatPrice(price)
-//     const whatsapp = formData.get('whatsapp') as string;
-//     const cleanedWhatsapp = whatsapp.replace(/\D/g, '');
-//     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/showcase/schedules`, {
-//         method: "POST",
-//         cache: 'no-store',
-//         headers: headersAuth,
-//         body: JSON.stringify({
-//             name: formData.get('name'),
-//             whatsapp: cleanedWhatsapp,
-//             birthDate: formData.get('birthDate'),
-//             price: cleanedPrice,
-//             message: formData.get('message'),
-//             card_id: formData.get('card_id'),
-//             user_id: auth?.payload?.id
-//         })
-//     });
-//     if (response.ok){
-//         const { data }  = await response.json();
-//         // console.log('salvou', purchase_id)
-//         // return data
-//         redirect(`/pagamento/${data.purchase_id}`);
-//     } else {
-//         const data = await response.json();
-//         console.log('erro data', data)
-//         // throw new Error('Erro no realizar o login!');
-//         return { error: data.message || 'Erro a salvar sua informação!' };
-//     }
-//     // return true;
-// }
+export async function redirectPix(data: string) {
+    redirect(`${data}/pix`);
+}
+export async function getPix(data: string) {
+    'use server'
+    // console.log(data);
+    // return 'ok';
+    const headersAuth = await headersAuthorization();
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/show_admin/purchase_payment/pix/${data}`, {
+        cache: 'no-store',
+        headers: headersAuth,
+    });
+    if(response.ok) {
+        const { data } = await response.json();
+        return data;
+    } else {
+        const data = await response.json();
+        console.error(data);
+        throw new Error(data);
+    }            
+}

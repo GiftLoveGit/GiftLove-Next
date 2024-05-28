@@ -21,16 +21,19 @@ export async function loginAction(prevState: any, formData: FormData) {
                 remember_me: formData.get('remember_me')
             })
         });
-        
-        if (response.ok){
+
+        if (!response.ok) {
             const data = await response.json();
-            await setAuthData(data);
-            redirect("/dashboard");
-        } else {
-            const data = await response.json();
-            // throw new Error('Erro no realizar o login!');
+            throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`)
             return { error: data.message || 'Erro no realizar o login!' };
         }
+
+        // const buffer = await response.arrayBuffer()
+
+
+        const data = await response.json();
+        await setAuthData(data);
+        redirect("/dashboard");
 }
 export async function RegisterAction(prevState: any, formData: FormData) {
     "use server";

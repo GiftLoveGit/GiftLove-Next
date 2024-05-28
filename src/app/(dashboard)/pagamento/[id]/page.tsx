@@ -1,10 +1,9 @@
-
-import cartaoIMG from "@/assets/card.png"
 import Image from "next/image"
 import LatestSubmissions from "./components/LatestSubmissions"
 import { Metadata } from "next";
 import { getDataPayment } from '../payments';
 import ModalCreditCard from "./components/ModalCreditCard";
+import PixGeneration from "./components/PixGeneration";
 
 export const metadata: Metadata = {
     title: "GiftLove | Pagamento",
@@ -13,6 +12,22 @@ export const metadata: Metadata = {
 
 export default async function Payment({ params }: { params: { id: string } }) {
     const { purchase, purchase: { schedule }, giftCard, feesPayment } = await getDataPayment(params.id)
+    const price = parseFloat(purchase.price);
+
+    const formattedPrice = price.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        minimumFractionDigits: 2,
+    })
+
+    const formatWhatsapp = (whatsapp: string) => {
+        const cleaned = ('' + whatsapp).replace(/\D/g, '');
+        const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
+        if (match) {
+            return `(${match[1]}) ${match[2]}-${match[3]}`;
+        }
+        return whatsapp;
+    };
 
     return (
         <div className=" px-2 px-sm-5" style={{ minHeight: "85vh" }}>
@@ -58,18 +73,14 @@ export default async function Payment({ params }: { params: { id: string } }) {
                                 />
                             </div>
                             <div className="mb-3">
-                                <label
-                                    htmlFor="inputNumber"
-                                    className="form-label gl-gray"
-                                    data-mask="(00) 0000-0000"
-                                >
+                                <label htmlFor="inputNumber" className="form-label gl-gray">
                                     Whatsapp
                                 </label>
                                 <input
                                     className="form-control"
                                     id="inputNumber"
                                     name="whatsapp"
-                                    value={schedule.whatsapp}
+                                    value={formatWhatsapp(schedule.whatsapp)}
                                     readOnly
                                 />
                             </div>
@@ -78,15 +89,10 @@ export default async function Payment({ params }: { params: { id: string } }) {
                                     Valor do Cartão de Presente
                                 </label>
                                 <input
-                                    type="number"
-                                    placeholder="R$ 10,00"
+                                    type="text"
                                     className="form-control"
-                                    id="inputPrice"
-                                    min="0"
-                                    max="10000"
-                                    step="1"
                                     name="price"
-                                    value={purchase.price}
+                                    value={formattedPrice}
                                     readOnly
                                 />
                             </div>
@@ -106,19 +112,19 @@ export default async function Payment({ params }: { params: { id: string } }) {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-4 ">
-                        <p className="text-center">Métodos de Pagamentos</p>
-                        <div className="d-flex flex-column flex-sm-row justify-content-center gap-4 ">
-                            <a className="w-100 btn btn-blue" href="?">
-                                Pix
-                            </a>
-                            <ModalCreditCard
-                                price={purchase.price}
-                                feesPayment={feesPayment.fees}
-                                purchase_id={purchase.id}
-                            />
+                    {purchase.payment_status === null && (
+                        <div className="mt-4 ">
+                            <p className="text-center">Métodos de Pagamentos</p>
+                            <div className="d-flex flex-column flex-sm-row justify-content-center gap-4 ">
+                                <PixGeneration purchase_id={purchase.id} />
+                                <ModalCreditCard
+                                    price={purchase.price}
+                                    feesPayment={feesPayment.fees}
+                                    purchase_id={purchase.id}
+                                />
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
                 <LatestSubmissions />
             </div>

@@ -1,8 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react"
 import AliceCarousel from "react-alice-carousel"
-import "react-alice-carousel/lib/alice-carousel.css"
-import card from "@/assets/card.png"
+
 import Image from 'next/image'
 import { getDataCategories } from '@/actions/home';
 
@@ -43,7 +42,7 @@ export default function Categorias() {
     // Remove o listener quando o componente é desmontado
     return () => window.removeEventListener("resize", handleResize)
   }, []) // Executa este efeito apenas uma vez, após a montagem do componente
-  const bodyItems = categoriesData.map(({ id, name, image_base64 }) => (
+  const bodyItems = categoriesData.map(({ id, image, name, image_base64 }) => (
     <div className="item me-4 pb-1" key={id}>
       <div className="card shadow-sm border-0 h-100 p-sm-3 p-2 rounded-sm-5 rounded-4">
         <div className="mb-2 d-flex justify-content-between align-items-center">
@@ -55,11 +54,14 @@ export default function Categorias() {
           </span> */}
         </div>
         <Image
-          src={image_base64}
+          src={`http://localhost/storage/${image}`}
           className="card-img-top rounded-sm-4 rounded-3"
           alt={name}
           width={183}
           height={236}
+          style={{ height: 'auto' }}
+          placeholder="blur"
+          blurDataURL={image_base64}
         />
         <div className="card-body pb-0 pt-3 px-0">
           <a

@@ -1,10 +1,9 @@
 "use client"
 import React, {useState, useEffect } from "react"
 import AliceCarousel from "react-alice-carousel"
-import "react-alice-carousel/lib/alice-carousel.css"
-import card from "@/assets/card.png"
 import Image from 'next/image'
 import { getDataGiftCards } from '@/actions/home';
+import Link from "next/link";
 
 
 export default function CardCarousel() {
@@ -21,24 +20,27 @@ export default function CardCarousel() {
 
     fetchCardsData();
   }, []);
-  const bodyItems = cardsData.map(({ id, message, file_base64}) => (
+  const bodyItems = cardsData.map(({ id, message, file, file_base64}) => (
     <div className="item me-4 pb-1" key={id}>
       <div className="card shadow-sm border-0 h-100 p-sm-3 p-2 rounded-sm-5 rounded-4">
         <Image
-          src={file_base64}
+          src={`http://localhost/storage/${file}`}
           className="card-img-top rounded-sm-4 rounded-3"
           alt={message}
           width={183}
           height={236}
+          placeholder="blur"
+          blurDataURL={file_base64}
+          style={{ height: 'auto' }}
         />
         <div className="card-body pb-0 pt-3 px-0">
-          <a
+          <Link
             href={`/cartao/${id}`}
             className="btn btn-outline-yellow w-100 rounded-sm-4 rounded-3"
             rel="nofollow"
           >
             Quero Esse
-          </a>
+          </Link>
         </div>
       </div>
     </div>
