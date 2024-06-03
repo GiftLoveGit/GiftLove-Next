@@ -14,9 +14,9 @@ module.exports = {
   deploy: {
     production: {
       user: 'giftlove',  // Substitua pelo nome de usuário SSH
-      host: '143.110.230.44',  // Substitua pelo host SSH
+      host: ["143.110.230.44", "10.48.0.5", "10.124.0.2"],  // Substitua pelo host SSH
       ref: 'origin/main',  // Branch do Git para fazer o deploy
-      repo: 'https://github.com/GiftLoveGit/GiftLove-Next',  // Repositório Git
+      repo: 'git@github.com:GiftLoveGit/GiftLove-Next.git',  // Repositório Git
       path: '/var/www/html/GiftLove-Next',  // Caminho de destino no servidor
       'pre-deploy-local': '',  // Comandos antes do deploy local (opcional)
       'post-deploy': 'npm install && npm run build && pm2 reload ecosystem.config.js --env production',  // Comandos após o deploy
