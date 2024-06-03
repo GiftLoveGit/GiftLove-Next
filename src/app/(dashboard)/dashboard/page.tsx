@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect } from "react"
-import Sidebar from "@/partials/Sidebar"
+// import Sidebar from "@/components/Sidebar"
 // import FooterDash from "@/partials/FooterDash"
 import TokenGenerator from "@/components/Dashboard/TokenGenerator"
 import { FaCalendarCheck } from "react-icons/fa";

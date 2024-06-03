@@ -1,7 +1,5 @@
 "use client"
 import React from "react"
-import video from "@/assets/videoHome.mp4"
-import VideoMp4 from './ComoEnviarVideo'
 
 function ComoEnviar() {
   return (
@@ -12,7 +10,11 @@ function ComoEnviar() {
 
       <div className=" d-flex flex-column  flex-sm-row-reverse my-5">
         <div className="col d-flex justify-content-center">
-          <VideoMp4 />
+        <video className="rounded-4 img-fluid" controls width="250">
+            <source src='videos/videoHome.mp4' type="video/mp4" />
+            {/* Mensagem alternativa para navegadores que não suportam vídeo */}
+            O seu navegador não suporta a tag vídeo.
+        </video>
         </div>
         <div className="col mt-2 mt-sm-0 d-flex flex-column justify-content-center">
           <div className="row">

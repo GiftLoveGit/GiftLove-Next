@@ -22,6 +22,8 @@ export default async function Register () {
               style={{ objectFit: "cover" }}
               src={RegisterIMG}
               alt="Register"
+              // width={600}
+              // height={50}
             />
           </div>
           <div className="col-sm-8 col py-5 px-3 px-sm-5">

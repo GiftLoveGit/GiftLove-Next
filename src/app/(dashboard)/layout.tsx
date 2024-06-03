@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import BootstrapClient from '@/components/BootstrapClient';
-import Sidebar from "@/partials/Sidebar";
-import FooterDash from "@/partials/FooterDash";
-
-const inter = Inter({ subsets: ["latin"] });
+import Sidebar from "@/components/Sidebar";
+import FooterDash from "@/components/FooterDash";
 
 export const metadata: Metadata = {
     title: "Gift Love | Dashboard",
@@ -24,7 +21,7 @@ export default function DashboardLayout({
         <div className="">
             <div className="blue-rectangle w-100 position-absolute top-0 z-n1"></div>
             <div className="page-content">
-                <Sidebar currentPage="Dashboard" />
+                <Sidebar />
                 {children}
                 <FooterDash />
                 <BootstrapClient />

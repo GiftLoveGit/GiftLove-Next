@@ -9,8 +9,8 @@ import Parceiros from "@/components/Home/Parceiros";
 import SejaParceiro from "@/components/Home/SejaParceiro";
 import SobreNos from "@/components/Home/SobreNos";
 import FAQ from "@/components/Home/FAQ";
-import Navbar from "@/partials/Navbar";
-import Footer from "@/partials/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
