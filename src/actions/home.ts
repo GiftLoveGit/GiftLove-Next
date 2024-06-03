@@ -1,7 +1,7 @@
 "use server";
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
-import { headersAuthorization } from './headersAuthorization';
+// import { redirect } from "next/navigation";
+// import { cookies } from "next/headers";
+// import { headersAuthorization } from './headersAuthorization';
 import { revalidatePath } from 'next/cache';
 
 export async function getDataGiftCards() {

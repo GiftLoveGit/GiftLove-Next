@@ -1,5 +1,5 @@
 "use client"
-import React, {useState, useEffect } from "react"
+import {useState, useEffect } from "react"
 import AliceCarousel from "react-alice-carousel"
 import Image from 'next/image'
 import { getDataGiftCards } from '@/actions/home';
@@ -24,7 +24,7 @@ export default function CardCarousel() {
     <div className="item me-4 pb-1" key={id}>
       <div className="card shadow-sm border-0 h-100 p-sm-3 p-2 rounded-sm-5 rounded-4">
         <Image
-          src={`http://localhost/storage/${file}`}
+          src={`${process.env.REACT_APP_API_URL}/storage/${file}`}
           className="card-img-top rounded-sm-4 rounded-3"
           alt={message}
           width={183}

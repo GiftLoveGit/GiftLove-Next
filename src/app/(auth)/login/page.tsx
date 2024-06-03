@@ -17,7 +17,7 @@ export default async function Login() {
             <div className="d-flex flex-column justify-content-center align-items-center p-3 p-sm-0">
                 <div className="d-flex flex-column flex-sm-row shadow rounded-4">
                     <div className="col d-none d-sm-flex">
-                        <Image className="img-fluid rounded-4" src={LoginIMG} alt="Login" />
+                        <Image className="img-fluid rounded-4" src={LoginIMG} alt="Login" priority/>
                     </div>
                     <div className="col py-5 px-3 px-sm-5">
                         <div className="">

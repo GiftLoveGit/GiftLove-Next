@@ -46,7 +46,7 @@ export default function Error({
         //     title: 'Operação realizada com sucesso'
         // });
 
-    }, [error]);
+    }, [error, reset]);
 
     return (
         <div>

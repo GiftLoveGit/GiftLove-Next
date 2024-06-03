@@ -6,9 +6,9 @@ export default function CadastroLayout({
     // URL -> /shop/shoes/nike-air-max-97
     // `params` -> { tag: 'shoes', item: 'nike-air-max-97' }
     return (
-        <section >
+        <div >
               {children}
-      </section>
+      </div>
       )
   }
 //   }
