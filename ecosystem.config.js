@@ -19,7 +19,7 @@ module.exports = {
       repo: 'git@github.com:GiftLoveGit/GiftLove-Next.git',  // Repositório Git
       path: '/var/www/html/GiftLove-Next',  // Caminho de destino no servidor
       'pre-deploy-local': '',  // Comandos antes do deploy local (opcional)
-      // 'post-deploy': 'npm install && npm run build && pm2 reload ecosystem.config.js --env production',  // Comandos após o deploy
+      'post-deploy': 'npm install && npm run build && pm2 reload ecosystem.config.js --env production',  // Comandos após o deploy
       'pre-setup': ''  // Comandos antes do setup (opcional)
     }
   }
