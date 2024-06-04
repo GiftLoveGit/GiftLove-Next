@@ -31,7 +31,7 @@ export default function CardCarousel() {
           height={236}
           placeholder="blur"
           blurDataURL={file_base64}
-          style={{ height: 'auto' }}
+          // style={{ height: 'auto' }}
         />
         <div className="card-body pb-0 pt-3 px-0">
           <Link
