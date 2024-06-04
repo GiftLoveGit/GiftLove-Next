@@ -54,12 +54,11 @@ export default function Categorias() {
           </span> */}
         </div>
         <Image
-          src={`http://localhost/storage/${image}`}
+          src={`${process.env.apiStorage}/${image}`}
           className="card-img-top rounded-sm-4 rounded-3"
           alt={name}
           width={183}
           height={236}
-          style={{ height: 'auto' }}
           placeholder="blur"
           blurDataURL={image_base64}
         />
