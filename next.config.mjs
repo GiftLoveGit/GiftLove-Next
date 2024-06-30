@@ -19,6 +19,12 @@ const nextConfig = {
                 port: '',
                 pathname: '/storage/**',
             },
+            {
+                protocol: 'https',
+                hostname: 'api.giftlove.com.br',
+                port: '',
+                pathname: '/storage/**',
+            },
         ],
     },
     // async headers() {
@@ -39,8 +45,8 @@ const nextConfig = {
     //         return [];
     // },
     env: {
-        apiStorage: 'https://homoapi.giftlove.com.br/storage',
-        api: 'https://homoapi.giftlove.com.br/api'
+        apiStorage: 'https://giftlove.com.br/storage',
+        api: 'https://giftlove.com.br/api'
     }
 };
 
