@@ -54,7 +54,7 @@ export default function Categorias() {
           </span> */}
         </div>
         <Image
-          src={`${process.env.apiStorage}/${image}`}
+          src={`${process.env.NEXT_PUBLIC_STORAGE}/${image}`}
           className="card-img-top rounded-sm-4 rounded-3"
           alt={name}
           width={183}

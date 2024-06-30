@@ -1,10 +1,13 @@
 'use client'
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import React, { useEffect, useRef, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { Form } from '@/components/Form';
-import { postSchedule } from "@/actions/card"
+import { postSchedule } from "./action";
 import { Submit } from '@/components/Submit';
+import { Form, Button } from 'react-bootstrap';
+import { useFormState, useFormStatus } from "react-dom";
+import formatPhone from "@/help/formatPhone";
+import Link from 'next/link';
+import { useSession } from "next-auth/react"
 
 interface FormState {
     [key: string]: any;
@@ -19,10 +22,29 @@ export default function ModalCardPreview({
     formData,
     cardId
 }: ModalCardPreviewProps) {
+    const { data: session } = useSession()
+    console.log('front log', session)
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const [formState, formAction] = useFormState(postSchedule, {
+        message: "",
+        errors: undefined,
+        fieldValues: {
+            name: "",
+            phone: "",
+            price: "",
+            messageText: ""
+        }
+    })
+    const formRef = useRef<HTMLFormElement>(null);
+    useEffect(() => {
+        if (formState.message === "success") {
+            formRef.current?.reset();
+        }
+    }, [formState])
 
     return (
         <>
@@ -35,91 +57,110 @@ export default function ModalCardPreview({
                     <Modal.Title>Confirme os dados</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form action={postSchedule} className="mt-4">
-                        <input type="hidden" name="card_id" value={cardId} />
-                        <div className="mb-3">
-                            <label htmlFor="inputName" className="form-label">
+                {formState.message === "unauthenticated" && (
+                    <div className="alert alert-danger" role="alert">
+                        <Link href="/login">Você precisa realizar o login para essa ação. clique aqui</Link>
+                    </div>
+                )}
+                    <form ref={formRef} action={formAction} className="mt-4">
+                        <input type="hidden" name="user_id" value={session?.user?.id} />
+                        <Form.Control type="hidden" name="card_id" value={cardId} />
+                        <Form.Group className="mb-3">
+                            <Form.Label>
                                 Nome
-                            </label>
-                            <input
+                            </Form.Label>
+                            <Form.Control
                                 type="text"
                                 className="form-control"
                                 id="inputName"
                                 name="name"
-                                value={formData.name}
+                                defaultValue={formData.name}
                                 readOnly
+                                isInvalid={!!formState.errors?.name}
                             />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="inputDate" className="form-label">
+                            <Form.Control.Feedback type="invalid">
+                                {formState.errors?.name}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        {/* <div className="mb-3">
+                            <Form.Label>
                                 Agendado para
-                            </label>
+                            </Form.Label>
                             <input
                                 type="datetime-local"
                                 className="form-control"
                                 id="inputDate"
                                 name="birthDate"
-                                value={formData.birthDate}
+                                defaultValue={formData.birthDate}
                                 readOnly
                             />
-                        </div>
-                        <div className="mb-3">
-                            <label
-                                htmlFor="inputNumber"
-                                className="form-label gl-gray"
-                                data-mask="(00) 0000-0000"
-                            >
+                        </div> */}
+                        <Form.Group className="mb-3">
+                            <Form.Label>
                                 Whatsapp
-                            </label>
-                            <input
+                            </Form.Label>
+                            <Form.Control
                                 className="form-control"
                                 id="inputNumber"
-                                name="whatsapp"
-                                value={formData.whatsapp}
+                                name="phone"
+                                defaultValue={formatPhone(formData.whatsapp)}
                                 readOnly
+                                isInvalid={!!formState.errors?.phone}
                             />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="inputPrice" className="form-label">
+                            <Form.Control.Feedback type="invalid">
+                                {formState.errors?.phone}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>
                                 Valor do Cartão de Presente
-                            </label>
-                            <input
+                            </Form.Label>
+                            <Form.Control
                                 type="text"
                                 className="form-control"
                                 id="inputPrice"
                                 name="price"
-                                value={`R$ ${formData.price}`}
+                                defaultValue={`${formData.price}`}
                                 readOnly
+                                isInvalid={!!formState.errors?.price}
                             />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="inputMessage" className="form-label">
+                            <Form.Control.Feedback type="invalid">
+                                {formState.errors?.price}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label htmlFor="inputMessage" className="form-Form.Label">
                                 Mensagem
-                            </label>
-                            <textarea
+                            </Form.Label>
+                            <Form.Control
                                 className="form-control"
                                 id="inputMessage"
-                                name="message"
-                                value={formData.message}
+                                name="messageText"
+                                defaultValue={formData.messageText}
                                 rows={5}
+                                as="textarea"
                                 style={{ resize: 'none' }}
                                 readOnly
-                            ></textarea>
-                        </div>
-                        <div className="mb-3">
+                                isInvalid={!!formState.errors?.messageText}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                {formState.errors?.messageText}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
                             <Submit type="submit" className="w-100 btn btn-blue">
                                 Pagamento
                             </Submit>
-                        </div>
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Fechar
-                </Button>
+                        </Form.Group>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Fechar
+                    </Button>
 
-            </Modal.Footer>
-        </Modal >
+                </Modal.Footer>
+            </Modal >
         </>
     );
 }

@@ -1,21 +1,20 @@
 import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import { checkAuth } from "@/actions/auth";
+import { withAuth, NextRequestWithAuth, NextAuthMiddlewareOptions } from 'next-auth/middleware'
 
-export async function middleware(request: NextRequest) {
-    // const authData = await getAuthData();
-    const auth = await checkAuth();
-    // // console.log('resposta auth', auth)
-    if(!auth)
-         // return NextResponse.redirect(new URL('/', request.url))
-        return NextResponse.redirect(new URL('/login', request.url));
+const middleware = (request: NextRequestWithAuth) => {
+    // console.log('[MIDDLEWARE_NEXTAUTH_TOKEN]: ', request.nextauth.token)
+
+    const isPrivateRoutes = request.nextUrl.pathname.startsWith('/dashboard')
+    const isAdminUser = request.nextauth.token?.role === 'user'
+
+    if (isPrivateRoutes && !isAdminUser) {
+        return NextResponse.rewrite(new URL('/login', request.url))
     }
-    // if(!authData)
-    //     // return NextResponse.redirect(new URL('/', request.url))
-    //     return NextResponse.redirect(new URL('/login', request.url));
-    // }
+}
 
-// See "Matching Paths" below to learn more
+const callbackOptions: NextAuthMiddlewareOptions = {}
+
+export default withAuth(middleware, callbackOptions)
 export const config = {
     matcher: [
         "/dashboard/:path*",

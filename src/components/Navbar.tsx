@@ -2,8 +2,11 @@
 import React, { useState } from "react"
 import logo from "@/assets/logo.png";
 import Image from 'next/image'
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 function Navbar() {
+  const { data: session } = useSession()
   const [activeItem, setActiveItem] = useState<string>("")
   const [searchTerm, setSearchTerm] = useState("")
 
@@ -105,9 +108,16 @@ function Navbar() {
                 value={searchTerm}
                 onChange={handleSearchChange}
               />
-              <a className="btn btn-yellow" href="/login">
-                Login
-              </a>
+              {session ? (
+                <Link className="btn btn-info" href="/dashboard">
+                  Dashboard
+                </Link>
+              ) : (
+                <Link className="btn btn-yellow" href="/login">
+                  Login
+                </Link>
+              )}
+
             </form>
           </div>
         </div>
