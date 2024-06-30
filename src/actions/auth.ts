@@ -67,19 +67,19 @@ import { headersAuthorization } from './headersAuthorization';
 //     }
 // }
 export async function logoutAction() {
-    // "use server";
+    "use server";
     const headersAuth = await headersAuthorization();
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/logout`, {
         method: "POST",
         headers: headersAuth,
     });
     if (response.ok){
-        await removeCookies();
+        // await removeCookies();
         const data = await response.json();
+        return data;
         // data.success = "Logout com sucesso!"
-        redirect('/login');        
+        // redirect('/login');        
     } else {
-        console.log('erro ao sair cara')
         const data = await response.json();
         return { error: data.message || 'Erro ao logout!' };
     }

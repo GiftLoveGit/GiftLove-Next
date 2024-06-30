@@ -3,13 +3,14 @@ import React, { useState, ChangeEvent } from "react"
 import formatPhone from "@/help/formatPhone";
 import toBRL from "@/help/formatCurrency"
 import ModalCardPreview from "./ModalCardPreview";
+import { Form, Button } from 'react-bootstrap';
 
 interface FormState {
     name: string
     birthDate: string
     whatsapp: string
     price: string
-    message: string
+    messageText: string
 }
 interface FormCardProps {
     cardId: string;
@@ -21,8 +22,8 @@ const FormCard: React.FC<FormCardProps> = ({ cardId }) => {
         name: "",
         birthDate: "",
         whatsapp: "",
-        price: "R$ 0,00",
-        message: "Olá, tubo bem!",
+        price: "",
+        messageText: "",
     })
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = event.target as HTMLInputElement | HTMLTextAreaElement;
@@ -47,25 +48,25 @@ const FormCard: React.FC<FormCardProps> = ({ cardId }) => {
     };
     return (
         <>
-            <div className="mb-3">
-                <label htmlFor="inputName" className="form-label">
+            <Form.Group className="mb-3">
+                <Form.Label>
                     Nome
-                </label>
-                <input
+                </Form.Label>
+                <Form.Control
                     type="text"
                     className="form-control"
                     id="inputName"
-                    placeholder="Nome"
+                    placeholder="Nome para quem enviará o cartão presente."
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                 />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="inputDate" className="form-label">
+            </Form.Group>
+            {/* <Form.Group className="mb-3">
+                <Form.Label htmlFor="inputDate" className="form-Form.Label">
                     Agende o envio
-                </label>
-                <input
+                </Form.Label>
+                <Form.Control
                     type="datetime-local"
                     className="form-control"
                     id="inputDate"
@@ -74,55 +75,53 @@ const FormCard: React.FC<FormCardProps> = ({ cardId }) => {
                     onChange={handleChange}
                     min={getCurrentDateTime()}
                 />
-            </div>
-            <div className="mb-3">
-                <label
-                    htmlFor="inputNumber"
-                    className="form-label gl-gray"
-                    data-mask="(00) 0000-0000"
-                >
+            </Form.Group> */}
+            <Form.Group className="mb-3">
+                <Form.Label>
                     Whatsapp
-                </label>
-                <input
+                </Form.Label>
+                <Form.Control
                     className="form-control"
                     id="inputNumber"
                     name="whatsapp"
-                    maxLength={14}
+                    placeholder="(99) 99999-9999"
+                    maxLength={15}
                     value={formatPhone(formData.whatsapp)}
                     onChange={handleChange}
                 />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="inputPrice" className="form-label">
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <Form.Label>
                     Valor do Cartão de Presente
-                </label>
-                <input
+                </Form.Label>
+                <Form.Control
                     type="text"
-                    placeholder="R$ 10,00"
+                    placeholder="R$ 50,00"
                     className="form-control"
                     id="inputPrice"
                     name="price"
                     value={formData.price}
                     onChange={handlePriceChange}
                 />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="inputMessage" className="form-label">
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <Form.Label>
                     Mensagem
-                </label>
-                <textarea
+                </Form.Label>
+                <Form.Control
                     className="form-control"
-                    placeholder="Deixe sua mensagem aqui"
+                    placeholder="Deixe sua mensagem aqui."
                     id="inputMessage"
+                    as="textarea"
                     rows={4}
-                    name="message"
-                    value={formData.message}
+                    name="messageText"
+                    value={formData.messageText}
                     onChange={handleChange}
-                ></textarea>
-            </div>
-            <div className="text-center">
+                />
+            </Form.Group>
+            <Form.Group className="text-center">
                 <ModalCardPreview formData={formData} cardId={cardId} />
-            </div>
+            </Form.Group>
         </>
     )
 }

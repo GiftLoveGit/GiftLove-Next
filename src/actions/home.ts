@@ -5,7 +5,7 @@
 import { revalidatePath } from 'next/cache';
 
 export async function getDataGiftCards() {
-    const response = await fetch(`${process.env.api}/showcase/gift_cards?raw_list`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/showcase/gift_cards?raw_list`, {
         cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export async function getDataGiftCards() {
     }
 }
 export async function getDataCategories() {
-    const response = await fetch(`${process.env.api}/showcase/categories?raw_list`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/showcase/categories?raw_list`, {
         cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',

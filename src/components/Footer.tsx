@@ -2,8 +2,12 @@ import logo from "@/assets/logo.png"
 import Image from 'next/image'
 import Link from "next/link"
 import { FaInstagram, FaFacebook } from "react-icons/fa6"
+import { auth as authOptions } from '@/lib/auth-config'
+import { getServerSession } from 'next-auth'
 
-export default function Footer() {
+export default async function Footer() {
+  const session = await getServerSession(authOptions)
+  console.log('MANOOOOOOOOO', session)
   return (
     <div className="mt-5 pt-5">
       <section className="deneb_cta">
@@ -24,9 +28,11 @@ export default function Footer() {
               </div>
               <div className="col-lg-2">
                 <div className="button_box">
-                  <Link href="/cadastro" className="btn btn-pink">
-                    Começar
-                  </Link>
+                  {!session && (
+                    <Link href="/cadastro" className="btn btn-pink">
+                      Começar
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

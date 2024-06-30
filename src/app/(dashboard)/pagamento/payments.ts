@@ -122,8 +122,6 @@ export async function redirectPix(data: string) {
 }
 export async function getPix(data: string) {
     'use server'
-    // console.log(data);
-    // return 'ok';
     const headersAuth = await headersAuthorization();
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/show_admin/purchase_payment/pix/${data}`, {
         cache: 'no-store',

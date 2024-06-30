@@ -183,7 +183,7 @@ export default function TermsOfExchange() {
                     </p>
                     <p>
                         Em caso de dúvidas entre em contato com nosso suporte, cujo contato
-                        poderá ser feito por <Link className="text-info" target="_blank" rel="noopener noreferrer" href="https://wa.me/5547988439543?text=Ol%C3%A1%2C+tudo+bem%21%3F">aqui</Link>, ou nos endereços
+                        poderá ser feito por <Link className="text-info" target="_blank" rel="noopener noreferrer" href="https://wa.me/5596984085079?text=Ol%C3%A1%2C+tudo+bem%21%3F">aqui</Link>, ou nos endereços
                         constantes no rodapé de nosso site.
                     </p>
                     <p>
