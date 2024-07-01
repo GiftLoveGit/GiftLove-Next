@@ -47,7 +47,7 @@ export default function CardCarousel() {
     ))
     return (
         <div className="pt-5">
-            <h1 className="h3 gl-gray text-center mb-3">Mensagens Novinhas</h1>
+            <h1 className="h3 gl-gray text-center mb-3">Mensagens Diversas</h1>
             <AliceCarousel
                 mouseTracking
                 autoPlayInterval={3000}
